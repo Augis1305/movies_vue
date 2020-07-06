@@ -50,16 +50,6 @@ export default {
         })
         .finally(() => (this.loading = false));
     }
-    // getResults(id) {
-    //   axios
-    //     .get(
-    //       `https://api.themoviedb.org/3/tv/1399/season/${id}?api_key=${storage.apiKey}&language=en-US`
-    //     )
-    //     .then(function(resp) {
-    //       this.results = resp.data.episodes;
-    //       console.log(this.results);
-    //     });
-    // }
   }
 };
 </script>
