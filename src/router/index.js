@@ -1,6 +1,9 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Movies from "../views/Movies.vue";
+// import Movies from "../views/Movies.vue";
+import Episodes from "../views/Episodes.vue";
+import TvShows from "../views/TvShows.vue";
+import Home from "../views/Home.vue";
 
 Vue.use(VueRouter);
 
@@ -8,6 +11,7 @@ const routes = [
     {
         path: "/",
         name: "Home",
+        component: Home,
     },
     {
         path: "/seasons",
@@ -16,7 +20,12 @@ const routes = [
     {
         path: "/episode",
         name: "Episode",
-        component: Movies
+        component: Episodes 
+    },
+    {
+        path: "/movies",
+        name: "Movies",
+        component: TvShows 
     }
 ];
 
