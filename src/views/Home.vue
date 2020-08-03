@@ -16,6 +16,7 @@
                 v-for="(movie, index) in popularMoviesFiltered"
                 :key="index"
                 :class="{ active: index==0}"
+                @click="loadMovie(movie_id)"
               >
                 <img
                   class="img-fluid"
