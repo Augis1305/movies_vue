@@ -16,13 +16,20 @@
                 v-for="(movie, index) in popularMoviesFiltered"
                 :key="index"
                 :class="{ active: index==0}"
-                @click="loadMovie(movie_id)"
+                @click="loadMovie(movie.id)"
               >
                 <img
                   class="img-fluid"
                   :src="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
-                  alt
+                  :alt="movie.title"
                 />
+                <div>
+                  <div>
+                    <div class>
+                      <p>{{movie.title}}</p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -62,7 +69,6 @@ export default {
       popularMovies: [],
       numberOfItems: 10,
       sliderInit: false,
-      message: ""
     };
   },
   props: ["sliderOptions", "posterPath"],
@@ -94,7 +100,7 @@ export default {
       });
     },
     loadMovie(id) {
-      this.$router.push({ name: "movie", params: { id: id } });
+      this.$router.push({ name: "movie", params: { id : id} });
     }
   },
   created() {
@@ -106,7 +112,7 @@ export default {
 </script>
 
 <style lang="scss">
-.text-center{
+.text-center {
   text-align: center;
 }
 </style>

@@ -19,6 +19,7 @@ export const HomeHttp = {
 export const MovieHttp = {
 
     getMovie: (id) => {
-        return axios.get('movie/' + id + '?api_key=' + config.API_KEY);
+        console.log(baseURL + 'movie/' + id + '?api_key=' + config.API_KEY);
+        return axios.get(baseURL + 'movie/' + id + '?api_key=' + config.API_KEY);
     },
 }
