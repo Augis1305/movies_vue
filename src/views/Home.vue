@@ -1,118 +1,130 @@
 <template>
-  <div class="container">
-    <div class="row justify-content-md-center">
-      <div class="col-md-5">
-        <h2 class="text-center">Popular Movies</h2>
-        <div class="col-md-auto">
-          <div
-            id="carouselExampleIndicators"
-            class="carousel slide"
-            data-ride="carousel"
-            data-interval="1400"
-          >
-            <div class="carousel-inner">
-              <div
-                class="carousel-item"
-                v-for="(movie, index) in popularMoviesFiltered"
-                :key="index"
-                :class="{ active: index==0}"
-                @click="loadMovie(movie.id)"
-              >
-                <img
-                  class="img-fluid"
-                  :src="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
-                  :alt="movie.title"
-                />
-                <div>
-                  <div>
-                    <div class>
-                      <p>{{movie.title}}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+  <div class="content">
+    <div class="page-title">
+      <h2>Popular Movies</h2>
+    </div>
+    <flickity v-if="sliderInit" ref="flickity-popular" :options="flickityOptions">
+      <div
+        class="item"
+        v-for="(movie, index) in popularMoviesFiltered"
+        :class="{ active: index==0}"
+        @click="loadMovie(movie.id)"
+        :key="index"
+      >
+        <img
+          :src="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
+          class="item-image"
+          :alt="movie.title"
+        />
+        <div class="item-title">
+          <div class="center-align">
+            <div class="center-align-inner">
+              <p>{{ movie.title }}</p>
             </div>
           </div>
-          <a
-            class="carousel-control-prev"
-            href="#carouselExampleIndicators"
-            role="button"
-            data-slide="prev"
-          >
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-          </a>
-          <a
-            class="carousel-control-next"
-            href="#carouselExampleIndicators"
-            role="button col"
-            data-slide="next"
-          >
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-          </a>
         </div>
       </div>
+    </flickity>
+
+    <div class="page-title">
+      <h2>Upcoming Movies</h2>
     </div>
+    <flickity v-if="sliderInit" ref="flickity-upcoming" :options="flickityOptions">
+      <div
+        class="item"
+        v-for="(movie, index) in upcomingMoviesFiltered"
+        @click="loadMovie(movie.id)"
+        :class="{active: index==0}"
+        :key="index"
+      >
+        <img
+          :src="'https://image.tmdb.org/t/p/w500'+ movie.poster_path"
+          class="item-image"
+          :alt="movie.title"
+        />
+        <div class="item-title">
+          <div class="center-align">
+            <div class="center-align-inner">
+              <p>{{ movie.title }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </flickity>
   </div>
 </template>
 
 <script>
 import { HomeHttp } from "../resources/resources";
 import _ from "lodash";
-
+import Flickity from "vue-flickity";
 export default {
-  name: "Home",
+  components: {
+    Flickity
+  },
   data() {
     return {
       upcomingMovies: [],
       popularMovies: [],
       numberOfItems: 10,
       sliderInit: false,
+      flickityOptions: {
+        prevNextButtons: true,
+        pageDots: true,
+        wrapAround: true,
+        cellAlign: "left",
+        autoPlay: 5000
+      }
     };
   },
-  props: ["sliderOptions", "posterPath"],
+  props: ["posterPath"],
   computed: {
     upcomingMoviesFiltered() {
-      return _.sampleSize(this.upcomingMovies, this.numberOfItems);
+      return _.sampleSize(this.upcomingMovies, this.numberOfItems); // Pluck only N random items from the array
     },
     popularMoviesFiltered() {
-      return _.sampleSize(this.popularMovies, this.numberOfItems);
+      return _.sampleSize(this.popularMovies, this.numberOfItems); // Pluck only N random items from the array
     }
   },
   methods: {
     fetchData() {
       let self = this;
 
-      HomeHttp.getUpcomingMovies().then(movies => {
-        this.upcomingMovies = movies.data.results;
+      HomeHttp.getUpcomingMovies().then(
+        movies => {
+          this.upcomingMovies = movies.data.results;
 
-        HomeHttp.getPopularMovies().then(
-          movies => {
-            this.popularMovies = movies.data.results;
-            self.$emit("loadingEnd");
-            this.sliderInit = true;
-          },
-          error => {
-            console.log(error);
-          }
-        );
-      });
+          HomeHttp.getPopularMovies().then(
+            movies => {
+              this.popularMovies = movies.data.results;
+              self.$emit("loadingEnd");
+              this.sliderInit = true;
+            },
+            error => {
+              console.log(error); // Handle Error
+            }
+          );
+        },
+        error => {
+          console.log(error);
+          // Handle Error
+        }
+      );
     },
     loadMovie(id) {
-      this.$router.push({ name: "movie", params: { id : id} });
+      this.$router.push({ name: "movie", params: { id: id } }); // Load the movie with the given id
     }
   },
   created() {
-    this.$emit("resetBg");
-    this.$emit("loadingStart");
-    this.fetchData();
+    this.$emit("resetBg"); // Change to default background if we go to the homepage
+    this.$emit("loadingStart"); // Initiate loading
+
+    this.fetchData(); // Fetch the data from the API
   }
 };
 </script>
 
 <style lang="scss">
-.text-center {
-  text-align: center;
-}
+@import "../assets/moviedb.scss"
+
 </style>
