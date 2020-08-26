@@ -1,5 +1,6 @@
 <template>
   <div class="content">
+
     <div class="page-title">
       <h2>Popular Movies</h2>
     </div>
@@ -12,7 +13,7 @@
         :key="index"
       >
         <img
-          :src="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
+          :src="posterPath + movie.poster_path"
           class="item-image"
           :alt="movie.title"
         />
@@ -38,7 +39,7 @@
         :key="index"
       >
         <img
-          :src="'https://image.tmdb.org/t/p/w500'+ movie.poster_path"
+          :src="posterPath + movie.poster_path"
           class="item-image"
           :alt="movie.title"
         />
@@ -77,7 +78,7 @@ export default {
       }
     };
   },
-  props: ["posterPath"],
+  props: ["posterPath", "backgroungPath"],
   computed: {
     upcomingMoviesFiltered() {
       return _.sampleSize(this.upcomingMovies, this.numberOfItems); // Pluck only N random items from the array
@@ -125,6 +126,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../assets/moviedb.scss"
+// @import "../assets/moviedb.scss"
 
 </style>

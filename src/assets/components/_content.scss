@@ -69,6 +69,7 @@ p{
 		overflow-y: auto;
 		position: relative;
 		opacity: 1;
+		text-align: center;
 		
 
 		.page-title{
@@ -79,6 +80,7 @@ p{
 				font-size: $title-size;
 				color: $title-color;
 				text-transform: uppercase;
+				text-align: center;
 			}
 		}
 

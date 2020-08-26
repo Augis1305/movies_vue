@@ -3,7 +3,7 @@
     <div class="card flex-row">
       <div class="card-header border-0">
         <img
-          :src="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
+          :src=" posterPath + movie.poster_path"
           alt="movie.title"
           class="image-size"
         />
@@ -31,7 +31,7 @@ export default {
       movieLoaded: false
     };
   },
-  // props: ["posterPath", "backgroundPath"],
+  props: ["posterPath", "backgroundPath"],
   methods: {
     init(id) {
       this.movieId = id;
@@ -44,7 +44,7 @@ export default {
       MovieHttp.getMovie(id).then(movie => {
         this.movie = movie.data;
         this.movieLoaded = true;
-        self.$emit("movieLoaded");
+        self.$emit("movieLoaded", "https://image.tmdb.org/t/p/original"+ this.movie.backdrop_path);
         setTimeout(() => {
           self.$emit("loadingEnd");
         }, 1000);
@@ -81,8 +81,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.image-size {
-  width: 300px;
-  height: 500px;
-}
+// .image-size {
+//   width: 300px;
+//   height: 500px;
+// }
+@import "../assets/moviedb.scss";
 </style>
