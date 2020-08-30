@@ -1,0 +1,25 @@
+.item-full{
+    margin: -15px;
+
+    .item-image{
+        padding: 0;
+        @extend .col-md-5;
+        @extend .col-sm-12;
+        max-height: 550px;
+
+        img{
+            max-width: 100%;
+            height: 100%;
+        }
+    }
+
+    .item-data{
+        margin-top: 10px;
+        padding-left: 20px;
+        position: relative;
+        @extend .col-md-7;
+        @extend .col-sm-12;
+
+
+    }
+}

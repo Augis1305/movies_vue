@@ -1,4 +1,4 @@
-<template>
+<!--<template>
   <div class="container">
     <div class="card flex-row">
       <div class="card-header border-0">
@@ -18,7 +18,23 @@
       </div>
     </div>
   </div>
-</template> 
+</template>  --->
+
+<template>
+  <div class="container">
+    <div class="item-full">
+      <div class="item-image">
+        <transition>
+          <img :src="posterPath + movie.poster_path" alt="movie.title" class="item-image-full" />
+        </transition>
+      </div>
+
+      <div class="">
+        <h3> {{movie.title}}</h3> 
+      </div>
+    </div>
+  </div>
+</template>
 
 <script>
 import { MovieHttp } from "../resources/resources";
@@ -44,7 +60,10 @@ export default {
       MovieHttp.getMovie(id).then(movie => {
         this.movie = movie.data;
         this.movieLoaded = true;
-        self.$emit("movieLoaded", "https://image.tmdb.org/t/p/original"+ this.movie.backdrop_path);
+        self.$emit(
+          "movieLoaded",
+          "https://image.tmdb.org/t/p/original" + this.movie.backdrop_path
+        );
         setTimeout(() => {
           self.$emit("loadingEnd");
         }, 1000);
