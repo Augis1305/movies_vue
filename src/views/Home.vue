@@ -100,8 +100,7 @@ export default {
           );
         },
         error => {
-          console.log(error);
-          // Handle Error
+          console.log(error); // Handle Error
         }
       );
     },

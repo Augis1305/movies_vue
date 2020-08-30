@@ -11,7 +11,7 @@
       <div class="wrapper-inner">
         <div id="content" :class="{'loading' : loading}">
           <router-view
-            @resetBg="moviebg = false"
+            @resetBg="movieBg = false"
             @loadingEnd="loading = false"
             @loadingStart="loading = true"
             @movieLoaded="movieLoaded($event)"
@@ -43,7 +43,7 @@ export default {
         pageDots: true,
         wrapAround: true,
         cellAlign: "left",
-        autoPlay: 5000
+        autoPlay: 5000,
       }
     };
   },

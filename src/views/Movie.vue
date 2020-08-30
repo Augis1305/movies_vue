@@ -3,12 +3,7 @@
     <div class="item-full" v-if="movieLoaded">
       <div class="item-image">
         <transition name="fade" mode="out-in">
-          <img
-            :src="posterPath + this.movie.poster_path"
-            :alt="movie.title"
-            class="item-image"
-            :key="movie-poster"
-          />
+          <img :src="posterPath + this.movie.poster_path" :alt="movie.title" class="item-image" />
         </transition>
       </div>
       <div class="item-data">
@@ -98,6 +93,9 @@ export default {
   },
   created() {
     this.init(this.$route.params.id);
+  },
+  beforeDestroy() {
+    this.$emit('resetBg');
   }
 };
 </script>
