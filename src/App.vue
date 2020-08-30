@@ -15,9 +15,9 @@
             @loadingEnd="loading = false"
             @loadingStart="loading = true"
             @movieLoaded="movieLoaded($event)"
-            :sliderOptions="sliderOptions"
+            :flickityOptions="flickityOptions"
             :posterPath="posterPath"
-            :backgroungPath="backgroundPath"
+            :backgroundPath="backgroundPath"
           ></router-view>
         </div>
       </div>
@@ -27,16 +27,18 @@
 
 <script>
 // import Navigation from "@/components/Navigation.vue";
+
+// Exporting this stuff, so it can be used anywhere in the program
 export default {
   data() {
     return {
       backgroundImage: require('./assets/bg.jpeg'), // the background image
       posterPath: "https://image.tmdb.org/t/p/w500", // poster path
-      backgroundPath: "https://image.tmdb.org/t/p/original", // background path
+      backgroundPath: "https://image.tmdb.org/t/p/original",
       movieBg: false, // if movie background is loaded (for animation)
       loading: false, // if data is being lodaed (for animation)
-      sliderOptions: {
-        // slider for homepage - options
+      // Slider options 
+      flickityOptions: {
         prevNextButtons: false,
         pageDots: true,
         wrapAround: true,
@@ -64,5 +66,4 @@ export default {
 <style lang="scss">
 $primary: #05b2dd;
 @import "assets/moviedb.scss";
-@import "node_modules/bootstrap/scss/bootstrap";
 </style>

@@ -38,7 +38,7 @@ p{
 		position: absolute;
 		width: 100%;
 		height: 100%;
-		// @include bg-prefix('background', 'linear-gradient(rgba(17, 17, 17, .8) 10%, rgba(0,0,0,.8) 40%, rgba(17, 17, 17,.8) 90%)');
+		@include bg-prefix('background', 'linear-gradient(rgba(17, 17, 17, .8) 10%, rgba(0,0,0,.8) 40%, rgba(17, 17, 17,.8) 90%)');
 	}
 }	
 .wrapper{
@@ -47,11 +47,11 @@ p{
 	.wrapper-inner{
 		@extend .row;
 
-		header, #content, footer{
+		#content{
 			@extend .col-lg-10;
 			@extend .col-md-12;
 			@extend .col-sm-12;
-			// @extend .col-lg-offset-1;
+			@extend .offset-lg-1;
 			z-index: 9;
 
 		}
@@ -69,7 +69,6 @@ p{
 		overflow-y: auto;
 		position: relative;
 		opacity: 1;
-		text-align: center;
 		
 
 		.page-title{
@@ -80,7 +79,6 @@ p{
 				font-size: $title-size;
 				color: $title-color;
 				text-transform: uppercase;
-				text-align: center;
 			}
 		}
 

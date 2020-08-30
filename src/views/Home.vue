@@ -69,16 +69,9 @@ export default {
       popularMovies: [],
       numberOfItems: 10,
       sliderInit: false,
-      flickityOptions: {
-        prevNextButtons: true,
-        pageDots: true,
-        wrapAround: true,
-        cellAlign: "left",
-        autoPlay: 5000
-      }
     };
   },
-  props: ["posterPath", "backgroungPath"],
+  props: ["posterPath", "backgroundPath", "flickityOptions"],
   computed: {
     upcomingMoviesFiltered() {
       return _.sampleSize(this.upcomingMovies, this.numberOfItems); // Pluck only N random items from the array
@@ -119,13 +112,10 @@ export default {
   created() {
     this.$emit("resetBg"); // Change to default background if we go to the homepage
     this.$emit("loadingStart"); // Initiate loading
-
     this.fetchData(); // Fetch the data from the API
   }
 };
 </script>
 
 <style lang="scss">
-// @import "../assets/moviedb.scss"
-
 </style>
