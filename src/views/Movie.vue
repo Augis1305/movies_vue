@@ -3,28 +3,36 @@
     <div class="item-full" v-if="movieLoaded">
       <div class="item-image">
         <transition name="fade" mode="out-in">
-          <img :src="posterPath + this.movie.poster_path" :alt="movie.title" class="item-image" />
+          <img
+            :src="posterPath + this.movie.poster_path"
+            :alt="movie.title"
+            class="item-image"
+          />
         </transition>
       </div>
       <div class="item-data">
-        <h3 class="item-title">{{movie.title}}</h3>
-        <p>{{movie.overview}}</p>
+        <h3 class="item-title">{{ movie.title }}</h3>
+        <p>{{ movie.overview }}</p>
         <div class="item-info">
           <div class="item-info-col">
             <p>Original Release:</p>
-            <span class="item-info-value">{{movie.release_date ? movie.release_date : '/'}}</span>
+            <span class="item-info-value">{{
+              movie.release_date ? movie.release_date : "/"
+            }}</span>
           </div>
           <div class="item-info-col">
             <p>Running time</p>
-            <span class="item-info-value">{{movie.runtime ? movie.runtime : '-'}} min</span>
+            <span class="item-info-value"
+              >{{ movie.runtime ? movie.runtime : "-" }} min</span
+            >
           </div>
           <div class="item-info-col">
             <p>Box Office</p>
-            <span class="item-info-value">{{formatedRevenue}}</span>
+            <span class="item-info-value">{{ formatedRevenue }}</span>
           </div>
           <div class="item-info-col">
             <p>Rating</p>
-            <span class="item-info-value">{{formatedRating}}</span>
+            <span class="item-info-value">{{ formatedRating }}</span>
           </div>
         </div>
       </div>
@@ -95,7 +103,7 @@ export default {
     this.init(this.$route.params.id);
   },
   beforeDestroy() {
-    this.$emit('resetBg');
+    this.$emit("resetBg");
   }
 };
 </script>

@@ -9,31 +9,31 @@ import Movie from "../views/Movie.vue";
 Vue.use(VueRouter);
 
 const routes = [
-    {
-        path: "/",
-        name: "Home",
-        component: Home,
-    },
-    {
-        path: "/seasons",
-        name: "seasons",
-    },
-    {
-        path: "/episode",
-        name: "Episode",
-        component: Episodes 
-    },
-    {
-        path: "/movie/:id",
-        name: "movie",
-        component: Movie,
-        props: true,
-    }
+  {
+    path: "/",
+    name: "Home",
+    component: Home
+  },
+  {
+    path: "/seasons",
+    name: "seasons"
+  },
+  {
+    path: "/episode",
+    name: "Episode",
+    component: Episodes
+  },
+  {
+    path: "/movie/:id",
+    name: "movie",
+    component: Movie,
+    props: true
+  }
 ];
 
 const router = new VueRouter({
-    routes,
-    mode: 'history',
+  routes,
+  mode: "history"
 });
 
 export default router;

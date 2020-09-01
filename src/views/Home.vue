@@ -1,58 +1,65 @@
 <template>
-  <div class="content">
-
-    <div class="page-title">
-      <h2>Popular Movies</h2>
-    </div>
-    <flickity v-if="sliderInit" ref="flickity-popular" :options="flickityOptions">
-      <div
-        class="item"
-        v-for="(movie, index) in popularMoviesFiltered"
-        :class="{ active: index==0}"
-        @click="loadMovie(movie.id)"
-        :key="index"
-      >
-        <img
-          :src="posterPath + movie.poster_path"
-          class="item-image"
-          :alt="movie.title"
-        />
-        <div class="item-title">
-          <div class="center-align">
-            <div class="center-align-inner">
-              <p>{{ movie.title }}</p>
-            </div>
-          </div>
+    <div class="content">
+        <div class="page-title">
+            <h2>Popular Movies</h2>
         </div>
-      </div>
-    </flickity>
-
-    <div class="page-title">
-      <h2>Upcoming Movies</h2>
-    </div>
-    <flickity v-if="sliderInit" ref="flickity-upcoming" :options="flickityOptions">
-      <div
-        class="item"
-        v-for="(movie, index) in upcomingMoviesFiltered"
-        @click="loadMovie(movie.id)"
-        :class="{active: index==0}"
-        :key="index"
-      >
-        <img
-          :src="posterPath + movie.poster_path"
-          class="item-image"
-          :alt="movie.title"
-        />
-        <div class="item-title">
-          <div class="center-align">
-            <div class="center-align-inner">
-              <p>{{ movie.title }}</p>
+        <flickity
+            v-if="sliderInit"
+            ref="flickity-popular"
+            :options="flickityOptions"
+        >
+            <div
+                class="item"
+                v-for="(movie, index) in popularMoviesFiltered"
+                :class="{ active: index == 0 }"
+                @click="loadMovie(movie.id)"
+                :key="index"
+            >
+                <img
+                    :src="posterPath + movie.poster_path"
+                    class="item-image"
+                    :alt="movie.title"
+                />
+                <div class="item-title">
+                    <div class="center-align">
+                        <div class="center-align-inner">
+                            <p>{{ movie.title }}</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
+        </flickity>
+
+        <div class="page-title">
+            <h2>Upcoming Movies</h2>
         </div>
-      </div>
-    </flickity>
-  </div>
+        <flickity
+            v-if="sliderInit"
+            ref="flickity-upcoming"
+            :options="flickityOptions"
+        >
+            <div
+                class="item"
+                v-for="(movie, index) in upcomingMoviesFiltered"
+                @click="loadMovie(movie.id)"
+                :class="{ active: index == 0 }"
+                :key="index"
+            >
+                <img
+                    :src="posterPath + movie.poster_path"
+                    class="item-image"
+                    :alt="movie.title"
+                />
+                <div class="item-title">
+                    <div class="center-align">
+                        <div class="center-align-inner">
+                            <p>{{ movie.title }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </flickity>
+    </div>
 </template>
 
 <script>
@@ -60,61 +67,60 @@ import { HomeHttp } from "../resources/resources";
 import _ from "lodash";
 import Flickity from "vue-flickity";
 export default {
-  components: {
-    Flickity
-  },
-  data() {
-    return {
-      upcomingMovies: [],
-      popularMovies: [],
-      numberOfItems: 10,
-      sliderInit: false,
-    };
-  },
-  props: ["posterPath", "backgroundPath", "flickityOptions"],
-  computed: {
-    upcomingMoviesFiltered() {
-      return _.sampleSize(this.upcomingMovies, this.numberOfItems); // Pluck only N random items from the array
+    components: {
+        Flickity,
     },
-    popularMoviesFiltered() {
-      return _.sampleSize(this.popularMovies, this.numberOfItems); // Pluck only N random items from the array
-    }
-  },
-  methods: {
-    fetchData() {
-      let self = this;
-
-      HomeHttp.getUpcomingMovies().then(
-        movies => {
-          this.upcomingMovies = movies.data.results;
-
-          HomeHttp.getPopularMovies().then(
-            movies => {
-              this.popularMovies = movies.data.results;
-              self.$emit("loadingEnd");
-              this.sliderInit = true;
-            },
-            error => {
-              console.log(error); // Handle Error
-            }
-          );
+    data() {
+        return {
+            upcomingMovies: [],
+            popularMovies: [],
+            numberOfItems: 10,
+            sliderInit: false,
+        };
+    },
+    props: ["posterPath", "backgroundPath", "flickityOptions"],
+    computed: {
+        upcomingMoviesFiltered() {
+            return _.sampleSize(this.upcomingMovies, this.numberOfItems); // Pluck only N random items from the array
         },
-        error => {
-          console.log(error); // Handle Error
-        }
-      );
+        popularMoviesFiltered() {
+            return _.sampleSize(this.popularMovies, this.numberOfItems); // Pluck only N random items from the array
+        },
     },
-    loadMovie(id) {
-      this.$router.push({ name: "movie", params: { id: id } }); // Load the movie with the given id
-    }
-  },
-  created() {
-    this.$emit("resetBg"); // Change to default background if we go to the homepage
-    this.$emit("loadingStart"); // Initiate loading
-    this.fetchData(); // Fetch the data from the API
-  }
+    methods: {
+        fetchData() {
+            let self = this;
+
+            HomeHttp.getUpcomingMovies().then(
+                (movies) => {
+                    this.upcomingMovies = movies.data.results;
+
+                    HomeHttp.getPopularMovies().then(
+                        (movies) => {
+                            this.popularMovies = movies.data.results;
+                            self.$emit("loadingEnd");
+                            this.sliderInit = true;
+                        },
+                        (error) => {
+                            console.log(error); // Handle Error
+                        }
+                    );
+                },
+                (error) => {
+                    console.log(error); // Handle Error
+                }
+            );
+        },
+        loadMovie(id) {
+            this.$router.push({ name: "movie", params: { id: id } }); // Load the movie with the given id
+        },
+    },
+    created() {
+        this.$emit("resetBg"); // Change to default background if we go to the homepage
+        this.$emit("loadingStart"); // Initiate loading
+        this.fetchData(); // Fetch the data from the API
+    },
 };
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>
