@@ -23,3 +23,10 @@ export const MovieHttp = {
         return await axios.get(baseURL + "movie/" + id + "?api_key=" + config.API_KEY);
     }
 };
+
+export const HeaderHttp = {
+    
+    async getMovies (keyword) {
+        return await axios.get(baseURL + 'search/movie?query=' + keyword + '&api_key=' + config.API_KEY);
+    }
+};

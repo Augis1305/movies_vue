@@ -10,9 +10,13 @@
                 />
             </transition>
         </div>
+
         // Wrapper and Wrapper-inner wraps everything Container and row
         <div class="wrapper">
             <div class="wrapper-inner">
+
+                <appHeader :resetSearch="resetSearch" :currentMovie="currentMovie" @resetSearch="resetSearch = false" ></appHeader>
+
                 <div id="content" :class="{ loading: loading }">
                     <router-view
                         @resetBg="movieBg = false"
@@ -30,7 +34,9 @@
 </template>
 
 <script>
+
 // import Navigation from "@/components/Navigation.vue";
+import Header from './views/layout/Header.vue';
 
 // Exporting this stuff, so it can be used anywhere in the program
 export default {
@@ -52,9 +58,6 @@ export default {
         };
     },
     name: "app",
-    components: {
-        // Navigation
-    },
     methods: {
         movieLoaded(data) {
             this.backgroundImage = data;
@@ -64,6 +67,9 @@ export default {
             }, 1000);
         },
     },
+    components: {
+        appHeader: Header,
+    }
 };
 </script>
 
