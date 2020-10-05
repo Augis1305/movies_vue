@@ -1,10 +1,13 @@
-<template >
+<template>
   <div class="container">
-    
     <div class="table">
       <div class="col-6">
-        <input class="form-control" type="text" v-model="season" @click="getResults(season)" />
-
+        <input
+          class="form-control"
+          type="text"
+          v-model="season"
+          @keydown="getResults(season)"
+        />
       </div>
     </div>
     <table class="table table-dark">
@@ -18,10 +21,10 @@
       </thead>
       <tbody>
         <tr v-for="allEpisodes in results" :key="allEpisodes">
-          <th scope="row">{{allEpisodes.episode_number}}</th>
-          <td>{{allEpisodes.name}}</td>
-          <td>{{allEpisodes.overview}}</td>
-          <td>{{allEpisodes.vote_average}}</td>
+          <th scope="row">{{ allEpisodes.episode_number }}</th>
+          <td>{{ allEpisodes.name }}</td>
+          <td>{{ allEpisodes.overview }}</td>
+          <td>{{ allEpisodes.vote_average }}</td>
         </tr>
       </tbody>
     </table>
@@ -38,7 +41,7 @@ export default {
     };
   },
   methods: {
-    getResults: (season) => {
+    getResults: season => {
       axios
         .get(
           "https://api.themoviedb.org/3/tv/1399/season/" +

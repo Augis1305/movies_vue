@@ -4,7 +4,7 @@
       <div class="col-12 col-md-9 col-lg-7">
         <h1 class="font-weight-light text-center">Text</h1>
         <div>
-          <input type="text" v-model="query" @keyup="getResult(query)">
+          <input type="text" v-model="query" @keyup="getResult(query)" />
         </div>
       </div>
     </div>
@@ -17,7 +17,6 @@ export default {
   data() {
     return {
       shows: ""
-
     };
   },
 

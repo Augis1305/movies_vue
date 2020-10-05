@@ -1,0 +1,95 @@
+header {
+    @extend .container;
+    @extend .row;
+    z-index: 10 !important;
+
+    #logo {
+        color: #fff;
+        font-size: 28px;
+        font-weight: 600;
+        // padding-top: 20px;
+        padding-left: 0px;
+        @extend .col-md-4;
+        @extend .col-sm-12;
+
+        span {
+            color: $primary-color;
+            font-weight: 900;
+        }
+    }
+
+    #navigation {
+        @extend .col-md-8;
+        // padding-top: 20px;
+        padding-right: 0px;
+        padding-bottom: 75px;
+
+        ul {
+            padding-left: 0;
+            float: right;
+            margin-bottom: 0;
+
+            li {
+                list-style-type: none;
+                display: inline-block;
+                padding: 8px 12px;
+
+                a {
+                    color: $nav-color;
+                    font-size: $nav-size;
+                    @extend .ease-in-transition;
+
+                    &:hover {
+                        color: $nav-hover-color;
+                    }
+                }
+
+                &:last-of-type {
+                    padding-right: 0;
+                }
+
+                &.active-nav {
+                    a {
+                        color: $nav-hover-color;
+                    }
+                }
+            }
+        }
+    }
+
+    #search {
+        margin-top: 20px;
+        padding-left: 0;
+        padding-right: 0;
+        position: relative;
+        @extend .col-sm-12;
+
+        .dropdown {
+            position: absolute;
+            width: 100%;
+            height: auto;
+            top: 40px;
+            left: 0;
+            background: rgba(17, 17, 17, 0.9);
+            height: 225px;
+            overflow-y: auto;
+            @include prefix('box-shadow', 0 4px 8px rgba(0, 0, 0, .8));
+            @extend .ease-in-transition;
+
+            .dropdown-item{
+                cursor: pointer;
+                padding: 10px 0;
+                color: $primary-text;
+                @extend .ease-in-transition;
+
+                span{ 
+                    padding-left: 5px;
+                }
+
+                &:hover{
+                    background: $primary-color;
+                }
+            }
+        }
+    }
+}
