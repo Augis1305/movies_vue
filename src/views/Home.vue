@@ -1,7 +1,11 @@
+/* eslint-disable */
 <template>
     <div class="content">
         <div class="page-title">
-            <h2>Popular Movies</h2>
+            <div >
+                <button @click="getMoviesFromAPI">button</button>
+                <h2>Popular Movies</h2>
+            </div>
         </div>
         <flickity
             v-if="sliderInit"
@@ -63,9 +67,13 @@
 </template>
 
 <script>
+/* eslint-disable */
 import { HomeHttp } from "../resources/resources";
 import _ from "lodash";
 import Flickity from "vue-flickity";
+import { mapActions, mapGetters } from "vuex";
+// import { mapActions, mapGetters, mapState } from "vuex";
+
 export default {
     components: {
         Flickity,
@@ -114,6 +122,9 @@ export default {
         loadMovie(id) {
             this.$router.push({ name: "movie", params: { id: id } }); // Load the movie with the given id
         },
+        ...mapActions({
+            getMoviesFromAPI: "getUpcomingMovies",
+        }),
     },
     created() {
         this.$emit("resetBg"); // Change to default background if we go to the homepage

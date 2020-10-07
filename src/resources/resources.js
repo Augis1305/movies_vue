@@ -4,7 +4,6 @@ import {
 } from "../config/config";
 import axios from "axios";
 
-// Vue.use(axios);
 Vue.prototype.$axios = axios;
 const baseURL = "https://api.themoviedb.org/3/";
 

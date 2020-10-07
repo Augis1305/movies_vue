@@ -15,7 +15,7 @@
         <div class="wrapper">
             <div class="wrapper-inner">
 
-                <appHeader :resetSearch="resetSearch" :currentMovie="currentMovie" @resetSearch="resetSearch = false" ></appHeader>
+                <!-- <appHeader :resetSearch="resetSearch" :currentMovie="currentMovie" @resetSearch="resetSearch = false" ></appHeader> -->
 
                 <div id="content" :class="{ loading: loading }">
                     <router-view
@@ -36,7 +36,7 @@
 <script>
 
 // import Navigation from "@/components/Navigation.vue";
-import Header from './views/layout/Header.vue';
+// import Header from './views/layout/Header.vue';
 
 // Exporting this stuff, so it can be used anywhere in the program
 export default {
@@ -68,7 +68,7 @@ export default {
         },
     },
     components: {
-        appHeader: Header,
+        // appHeader: Header,
     }
 };
 </script>
