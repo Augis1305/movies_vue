@@ -11,12 +11,16 @@
             </transition>
         </div>
 
-        // Wrapper and Wrapper-inner wraps everything Container and row
+        <!-- // Wrapper and Wrapper-inner wraps everything Container and row -->
         <div class="wrapper">
-            <div class="wrapper-inner">
-
-                <!-- <appHeader :resetSearch="resetSearch" :currentMovie="currentMovie" @resetSearch="resetSearch = false" ></appHeader> -->
-
+        <!-- <div class=""> -->
+            <!-- <div class=""> -->
+                <div class="wrapper-inner">
+                    <appHeader
+                            :resetSearch="resetSearch"
+                        :currentMovie="currentMovie"
+                        @resetSearch="resetSearch = false"
+                    ></appHeader>
                 <div id="content" :class="{ loading: loading }">
                     <router-view
                         @resetBg="movieBg = false"
@@ -34,9 +38,9 @@
 </template>
 
 <script>
-
 // import Navigation from "@/components/Navigation.vue";
 // import Header from './views/layout/Header.vue';
+import Header from "./components/Header.vue";
 
 // Exporting this stuff, so it can be used anywhere in the program
 export default {
@@ -47,6 +51,8 @@ export default {
             backgroundPath: "https://image.tmdb.org/t/p/original",
             movieBg: false, // if movie background is loaded (for animation)
             loading: false, // if data is being lodaed (for animation)
+            currentMovie: "",
+            resetSearch: false,
             // Slider options
             flickityOptions: {
                 prevNextButtons: false,
@@ -68,8 +74,8 @@ export default {
         },
     },
     components: {
-        // appHeader: Header,
-    }
+        appHeader: Header,
+    },
 };
 </script>
 

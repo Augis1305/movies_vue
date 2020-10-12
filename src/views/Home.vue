@@ -2,10 +2,11 @@
 <template>
     <div class="content">
         <div class="page-title">
-            <div >
+            <!-- <div>
                 <button @click="getMoviesFromAPI">button</button>
+                <button @click="something">button2</button>
                 <h2>Popular Movies</h2>
-            </div>
+            </div> -->
         </div>
         <flickity
             v-if="sliderInit"
@@ -71,8 +72,7 @@
 import { HomeHttp } from "../resources/resources";
 import _ from "lodash";
 import Flickity from "vue-flickity";
-import { mapActions, mapGetters } from "vuex";
-// import { mapActions, mapGetters, mapState } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 
 export default {
     components: {
@@ -91,6 +91,9 @@ export default {
         upcomingMoviesFiltered() {
             return _.sampleSize(this.upcomingMovies, this.numberOfItems); // Pluck only N random items from the array
         },
+        // ...mapGetters({
+        //     something: "getAllUpcomingMovies"
+        // }),
         popularMoviesFiltered() {
             return _.sampleSize(this.popularMovies, this.numberOfItems); // Pluck only N random items from the array
         },
@@ -102,6 +105,7 @@ export default {
             HomeHttp.getUpcomingMovies().then(
                 (movies) => {
                     this.upcomingMovies = movies.data.results;
+                    console.log(this.upcomingMovies);
 
                     HomeHttp.getPopularMovies().then(
                         (movies) => {
@@ -123,7 +127,13 @@ export default {
             this.$router.push({ name: "movie", params: { id: id } }); // Load the movie with the given id
         },
         ...mapActions({
-            getMoviesFromAPI: "getUpcomingMovies",
+            getMoviesFromAPI: "getUpcomingMoviesFromAPI",
+        }),
+        ...mapGetters({
+            something: "getFitleredItems",
+        }),
+        ...mapMutations({
+            something2: "upcomingMoviesFiltered",
         }),
     },
     created() {
