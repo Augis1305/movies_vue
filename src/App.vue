@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <div id="bg-image">
+        <div class="bg-image">
             <img :class="{ 'bg-active': !movieBg }" src="./assets/bg.jpeg" />
             <transition name="fade" mode="in-out">
                 <img
