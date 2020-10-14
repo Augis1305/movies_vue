@@ -2,11 +2,9 @@
 <template>
     <div class="content">
         <div class="page-title">
-            <!-- <div>
-                <button @click="getMoviesFromAPI">button</button>
-                <button @click="something">button2</button>
+            <div>
                 <h2>Popular Movies</h2>
-            </div> -->
+            </div>
         </div>
         <flickity
             v-if="sliderInit"
@@ -80,66 +78,43 @@ export default {
     },
     data() {
         return {
-            upcomingMovies: [],
-            popularMovies: [],
-            numberOfItems: 10,
             sliderInit: false,
         };
     },
     props: ["posterPath", "backgroundPath", "flickityOptions"],
     computed: {
         upcomingMoviesFiltered() {
-            return _.sampleSize(this.upcomingMovies, this.numberOfItems); // Pluck only N random items from the array
+            return _.sampleSize(
+                this.$store.state.upcomingMovies,
+                this.$store.state.numberOfItems
+            );
         },
-        // ...mapGetters({
-        //     something: "getAllUpcomingMovies"
-        // }),
         popularMoviesFiltered() {
-            return _.sampleSize(this.popularMovies, this.numberOfItems); // Pluck only N random items from the array
+            return _.sampleSize(
+                this.$store.state.popularMovies,
+                this.$store.state.numberOfItems
+            ); // Pluck only N random items from the array
         },
     },
     methods: {
-        fetchData() {
-            let self = this;
-
-            HomeHttp.getUpcomingMovies().then(
-                (movies) => {
-                    this.upcomingMovies = movies.data.results;
-                    console.log(this.upcomingMovies);
-
-                    HomeHttp.getPopularMovies().then(
-                        (movies) => {
-                            this.popularMovies = movies.data.results;
-                            self.$emit("loadingEnd");
-                            this.sliderInit = true;
-                        },
-                        (error) => {
-                            console.log(error); // Handle Error
-                        }
-                    );
-                },
-                (error) => {
-                    console.log(error); // Handle Error
-                }
-            );
+        fetchDataNew() {
+            this.$store.dispatch("getUpcomingMoviesFromAPI").then(() => {
+                this.$store.dispatch("getPopularMoviesFromAPI");
+                this.$emit("loadingEnd");
+                this.sliderInit = true;
+            });
         },
+
         loadMovie(id) {
             this.$router.push({ name: "movie", params: { id: id } }); // Load the movie with the given id
         },
-        ...mapActions({
-            getMoviesFromAPI: "getUpcomingMoviesFromAPI",
-        }),
-        ...mapGetters({
-            something: "getFitleredItems",
-        }),
-        ...mapMutations({
-            something2: "upcomingMoviesFiltered",
-        }),
     },
     created() {
         this.$emit("resetBg"); // Change to default background if we go to the homepage
         this.$emit("loadingStart"); // Initiate loading
-        this.fetchData(); // Fetch the data from the API
+        this.$store.dispatch("getUpcomingMoviesFromAPI");
+        this.$store.dispatch("getPopularMoviesFromAPI");
+        this.fetchDataNew();
     },
 };
 </script>

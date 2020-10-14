@@ -38,8 +38,6 @@
 </template>
 
 <script>
-// import Navigation from "@/components/Navigation.vue";
-// import Header from './views/layout/Header.vue';
 import Header from "./components/Header.vue";
 
 // Exporting this stuff, so it can be used anywhere in the program

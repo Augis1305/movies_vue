@@ -15,37 +15,36 @@ const API_KEY = config.API_KEY;
 export default new Vuex.Store({
     state: {
         allMovies: "no movies",
-        upcomingMovies: [],
-        filteredUpcomingMovies: [],
+        upcomingMovies: {}, 
+        popularMovies: {},
         numberOfItems: 10, 
     },
 
     actions: {
-        getUpcomingMoviesFromAPI(state) {
-            axios.get(url + "movie/upcoming?api_key=" + API_KEY).then(response => {
-                state.commit("getUpcomingMovies", response.data.results)
+        async getUpcomingMoviesFromAPI(state) {
+            await axios.get(url + "movie/upcoming?api_key=" + API_KEY).then(response => {
+                state.commit("getUpcomingMovies", response.data.results);
             }).catch(error => {
                 console.log(error);
             })
         },
+
+        async getPopularMoviesFromAPI(state) {
+            await axios.get(url + "movie/popular?api_key=" + config.API_KEY).then(response => {
+                state.commit("getPopularMovies", response.data.results);
+            }).catch(error => {
+                console.log(error);
+            })
+        }
     },
 
     mutations: {
         getUpcomingMovies(state, payload) {
-            state.upcomingMovies.push(payload);
-            console.log(payload)
+            state.upcomingMovies = payload;
         },
-        upcomingMoviesFiltered(state){
-            console.log("something")
-            // return state.filteredUpcomingMovies.push(_.sampleSize(state.filteredUpcomingMovies, state.numberOfItems))
-            // state.filteredUpcomingMovies.push(payload);
-            // console.log(_.sampleSize(state.upcomingMovies, state.numberOfItems))
-        },
+        getPopularMovies(state, payload) {
+            state.popularMovies = payload;
+        }
     },
 
-    getters: {
-        getAllMovies: state => state.allMovies,
-        getAllUpcomingMovies: state => state.upcomingMovies,
-        getFitleredItems: state => state.filteredUpcomingMovies,
-    }
 })
