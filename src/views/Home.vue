@@ -79,6 +79,7 @@ export default {
     data() {
         return {
             sliderInit: false,
+            numberOfItems: 10,
         };
     },
     props: ["posterPath", "backgroundPath", "flickityOptions"],
@@ -86,13 +87,13 @@ export default {
         upcomingMoviesFiltered() {
             return _.sampleSize(
                 this.$store.state.upcomingMovies,
-                this.$store.state.numberOfItems
+                this.numberOfItems
             );
         },
         popularMoviesFiltered() {
             return _.sampleSize(
                 this.$store.state.popularMovies,
-                this.$store.state.numberOfItems
+                this.numberOfItems
             ); // Pluck only N random items from the array
         },
     },

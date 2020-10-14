@@ -14,10 +14,8 @@ const API_KEY = config.API_KEY;
 /* eslint-disable */
 export default new Vuex.Store({
     state: {
-        allMovies: "no movies",
         upcomingMovies: {}, 
         popularMovies: {},
-        numberOfItems: 10, 
     },
 
     actions: {
